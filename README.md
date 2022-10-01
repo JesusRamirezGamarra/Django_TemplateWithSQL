@@ -1,4 +1,14 @@
 
+<p align="center">
+  <p align="center">    
+    <img src="https://github.com/JesusRamirezGamarra/signature/blob/main/public/img/Logo_Negro.png" alt="BFFs" height="250">    
+  </p>
+  <p align="center">
+       CoderHouse - Python
+  </p>
+</p>
+
+# CH - Django with SQL
 
 https://learn.microsoft.com/en-us/windows/python/web-frameworks
 * python3 -m venv .venv
