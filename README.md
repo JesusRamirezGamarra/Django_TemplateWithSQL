@@ -18,7 +18,7 @@
 
 
  <p align="center">    
-    <img src="https://github.com/JesusRamirezGamarra/Django_TemplateWithSQL/blob/main/public/CH-DjangoWithDB.gif" alt="django" height="250">    
+    <img src="https://github.com/JesusRamirezGamarra/Django_TemplateWithSQL/blob/main/public/CH-DjangoWithDB.gif" alt="django" height="450">    
   </p>
 
 
