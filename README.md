@@ -17,6 +17,9 @@
 * Los familiares se deben ver desde la web.
 
 
+ <p align="center">    
+    <img src="https://github.com/JesusRamirezGamarra/Django_TemplateWithSQL/blob/main/public/CH-DjangoWithDB.gif" alt="django" height="250">    
+  </p>
 
 
 https://learn.microsoft.com/en-us/windows/python/web-frameworks
