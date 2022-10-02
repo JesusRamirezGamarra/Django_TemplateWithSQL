@@ -64,8 +64,8 @@ STATICFILES_DIRS = [
   System check identified no issues (0 silenced).
   ```
 En models.py agregamos : 
+### Propuesta 01
 ```
-# Propuesta 01
 from django.db import models
 class Donation(models.Model):
     name = models.CharField(max_length=50)
@@ -78,8 +78,8 @@ class Donation(models.Model):
     design =models.BooleanField()
     business =models.BooleanField()
 ``` 
+### Propuesta 02
 ```
-# Propuesta 02
 from django.db import models
 class Donation(models.Model):
     name = models.CharField(max_length=50)
@@ -108,7 +108,7 @@ class Job(models.Model):
     design =models.BooleanField()
     business =models.BooleanField()
 ```
-# Propuesta 03
+### Propuesta 03
 ```
 from django.db import models
 # from datetime import date
