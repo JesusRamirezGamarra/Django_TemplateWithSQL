@@ -180,9 +180,10 @@ Running migrations:
   Applying AppCoder.0001_initial... OK
 ```
 * python manage.py shell
+
+### Propuesta 01
 ```
 from AppCoder.models import Donation
-#forma 01
 donation = Donation(
   name="Jesus Ramirez", 
   email="luciojesusramirezgamarra@gmail.com",
@@ -195,8 +196,9 @@ donation = Donation(
   business=1
   )
 curso.save()
-
-#forma 02
+```
+### Propuesta 02
+```
  Donation.objects.create(
   name="Jesus Ramirez", 
   email="luciojesusramirezgamarra@gmail.com",
@@ -220,10 +222,9 @@ donation = Donation.objects.get(id=1)
 Lista = Donation.objects.all()
 Lista.query.__str__()
 'SELECT "AppCoder_donation"."id", "AppCoder_donation"."name", "AppCoder_donation"."email", "AppCoder_donation"."dateofbirht", "AppCoder_donation"."collaboration", "AppCoder_donation"."bio", "AppCoder_donation"."jobrol", "AppCoder_donation"."development", "AppCoder_donation"."design", "AppCoder_donation"."business" FROM "AppCoder_donation"'
-
-
-
-#Para la Version 1.2
+```
+### Propuesta 03
+```
 from AppCoder.models import Donation,Collaboration,Job
 
 Donation.objects.create(name="Jesus Ramirez",email="luciojesusramirezgamarra@gmail.com",dateofbirht="2000-05-14", bio="IT & Digital Manager, especialista en implementación de estrategias de transformación digital. Master in Business Administration (MBA) del AB Freeman School of Business at Tulane University ( EEUU) y de la Escuela de Negocios de la Pontificia Universidad Católica(Perú) enfocado en la gestión de proyectos ,estrategias e innovación Digital en los sectores de consumo masivo, venta directa, reparto/distribución , seguridad y gestión del riesgo . ")
@@ -246,7 +247,7 @@ job = Job.objects.all()
 job[0].jobrol
 ```
 
-ejemplo :
+### Propuesta 04
 ```
 python manage.py shell
 from AppCoder.models import Donation,Collaboration,Job
