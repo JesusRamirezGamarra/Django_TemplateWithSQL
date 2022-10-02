@@ -9,6 +9,15 @@
 </p>
 
 # CH - Django with SQL
+>> Consigna: Crear una web que permite ver los datos de algunos de tus familiares, guardados en un BD.
+
+* Deberá tener un template, una vista y un modelo (como mínimo, pueden usar más)
+* La clase del modelo, deberá guardar mínimo un número, una cadena y una fecha (puede guardar más cosas)
+* Se deberán crear como mínimo 3 familiares
+* Los familiares se deben ver desde la web.
+
+
+
 
 https://learn.microsoft.com/en-us/windows/python/web-frameworks
 * python3 -m venv .venv
@@ -53,58 +62,62 @@ STATICFILES_DIRS = [
   ```
 En models.py agregamos : 
 ```
+# Propuesta 01
 from django.db import models
-
-class Curso(models.Model):
-    
-    nombre=models.CharField(max_length=40)
-    camada=models.SmallIntegerField()
-    
-class Estudiante(models.Model):
-    nombre=models.CharField(max_length=30)
-    apellido=models.CharField(max_length=30)
-    email=models.EmailField()
-
-class Profesor(models.Model):
-    nombre=models.CharField(max_length=30)
-    apellido=models.CharField(max_length=30)
-    email=models.EmailField()
-    profesor=models.CharField(max_length=30)
-
-class Entregable(models.Model):
-    nombre = models.CharField(max_length=30)
-    fechaEntrega = models.DateField()
-    entregado =models.BooleanField()
+class Donation(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    dateofbirht = models.DateField()
+    collaboration = models.IntegerField()
+    bio = models.CharField(max_length=500)
+    jobrol = models.CharField(max_length=20)
+    development =models.BooleanField()
+    design =models.BooleanField()
+    business =models.BooleanField()
 ``` 
+```
+# Propuesta 02
+from django.db import models
+class Donation(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    dateofbirht = models.DateField()
+    collaboration = models.IntegerField()
+    bio = models.CharField(max_length=500)
+    jobrol = models.CharField(max_length=20)
+    development =models.BooleanField()
+    design =models.BooleanField()
+    business =models.BooleanField()
+
+class Donation(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    dateofbirht = models.DateField()
+    bio = models.CharField(max_length=500)
+
+class Collaboration(models.Model):
+    collaboration = models.IntegerField()
+    
+class Job(models.Model):    
+    # user_JobWorked = models.CharField(max_length=50)    
+    jobrol = models.CharField(max_length=20)
+    development =models.BooleanField()
+    design =models.BooleanField()
+    business =models.BooleanField()
+```
 
 * python manage.py makemigrations
   ```
-  Migrations for 'AppCoder':
   AppCoder/migrations/0001_initial.py
-    - Create model Curso
-    - Create model Entregable
-    - Create model Estudiante
-    - Create model Profesor
+    - Create model Donation
   ```
 * python manage.py sqlmigrate AppCoder 0001
 ```
 BEGIN;
 --
--- Create model Curso
+-- Create model Donation
 --
-CREATE TABLE "AppCoder_curso" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "nombre" varchar(40) NOT NULL, "camada" smallint NOT NULL);
---
--- Create model Entregable
---
-CREATE TABLE "AppCoder_entregable" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "nombre" varchar(30) NOT NULL, "fechaEntrega" date NOT NULL, "entregado" bool NOT NULL);
---
--- Create model Estudiante
---
-CREATE TABLE "AppCoder_estudiante" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "nombre" varchar(30) NOT NULL, "apellido" varchar(30) NOT NULL, "email" varchar(254) NOT NULL);
---
--- Create model Profesor
---
-CREATE TABLE "AppCoder_profesor" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "nombre" varchar(30) NOT NULL, "apellido" varchar(30) NOT NULL, "email" varchar(254) NOT NULL, "profesor" varchar(30) NOT NULL);
+CREATE TABLE "AppCoder_donation" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(50) NOT NULL, "email" varchar(254) NOT NULL, "dateofbirht" date NOT NULL, "collaboration" integer NOT NULL, "bio" varchar(500) NOT NULL, "jobrol" varchar(20) NOT NULL, "development" bool NOT NULL, "design" bool NOT NULL, "business" bool NOT NULL);
 COMMIT;
 ```
 * python manage.py migrate
@@ -116,9 +129,107 @@ Running migrations:
 ```
 * python manage.py shell
 ```
-from AppCoder.models import Curso
-curso = Curso(nombre="Python", camada=23800)
+from AppCoder.models import Donation
+#forma 01
+donation = Donation(
+  name="Jesus Ramirez", 
+  email="luciojesusramirezgamarra@gmail.com",
+  dateofbirht="2000-05-14",
+  collaboration=1000,
+  bio="IT & Digital Manager, especialista en implementación de estrategias de transformación digital. Master in Business Administration (MBA) del AB Freeman School of Business at Tulane University ( EEUU) y de la Escuela de Negocios de la Pontificia Universidad Católica(Perú) enfocado en la gestión de proyectos ,estrategias e innovación Digital en los sectores de consumo masivo, venta directa, reparto/distribución , seguridad y gestión del riesgo . ",
+  jobrol="business_owner",
+  development=0,
+  design=,0
+  business=1
+  )
 curso.save()
+
+#forma 02
+ Donation.objects.create(
+  name="Jesus Ramirez", 
+  email="luciojesusramirezgamarra@gmail.com",
+  dateofbirht="2000-05-14",
+  collaboration=1000,
+  bio="IT & Digital Manager, especialista en implementación de estrategias de transformación digital. Master in Business Administration (MBA) del AB Freeman School of Business at Tulane University ( EEUU) y de la Escuela de Negocios de la Pontificia Universidad Católica(Perú) enfocado en la gestión de proyectos ,estrategias e innovación Digital en los sectores de consumo masivo, venta directa, reparto/distribución , seguridad y gestión del riesgo . ",
+  jobrol="business_owner",
+  development=0,
+  design=0,
+  business=1
+  )
+
+# para eliminar el registro
+donation = Donation.objects.get(id=1)
+donation.delete()
+
+# para hacer un select 
+#Para obtener 1 registro
+donation = Donation.objects.get(id=1)
+#Para obtener all registro
+Lista = Donation.objects.all()
+Lista.query.__str__()
+'SELECT "AppCoder_donation"."id", "AppCoder_donation"."name", "AppCoder_donation"."email", "AppCoder_donation"."dateofbirht", "AppCoder_donation"."collaboration", "AppCoder_donation"."bio", "AppCoder_donation"."jobrol", "AppCoder_donation"."development", "AppCoder_donation"."design", "AppCoder_donation"."business" FROM "AppCoder_donation"'
+
+
+
+#Para la Version 1.2
+from AppCoder.models import Donation,Collaboration,Job
+
+Donation.objects.create(name="Jesus Ramirez",email="luciojesusramirezgamarra@gmail.com",dateofbirht="2000-05-14", bio="IT & Digital Manager, especialista en implementación de estrategias de transformación digital. Master in Business Administration (MBA) del AB Freeman School of Business at Tulane University ( EEUU) y de la Escuela de Negocios de la Pontificia Universidad Católica(Perú) enfocado en la gestión de proyectos ,estrategias e innovación Digital en los sectores de consumo masivo, venta directa, reparto/distribución , seguridad y gestión del riesgo . ")
+
+Collaboration.objects.create(payment=1000)
+
+Job.objects.create(jobrol="business_owner",  development=0,  design=0,  business=1  )
+
+donation = Donation.objects.get(id=1)
+donation.1
+collaboration = Collaboration.objects.get(id=1)
+collaboration.payment
+job = Job.objects.get(business=True)
+job.jobrol
+
+donation = Donation.objects.all()
+collaboration = Collaboration.objects.all()
+job = Job.objects.all()
+
+job[0].jobrol
+```
+
+ejemplo :
+```
+python manage.py shell
+from AppCoder.models import Donation,Collaboration,Job
+user_email = 'luciojesusramirezgamarra@gmail.com'
+donation = Donation.objects.get(email=f'{user_email}')
+donation
+
+
+donation = Donation.objects.filter(email=f'{user_email}12')
+donation.first()
+len(donation.first())
+
+
+>>> donation = Donation.objects.filter(email=f'{user_email}')
+>>> donation
+<QuerySet [<Donation: Jesus Ramirez luciojesusramirezgamarra@gmail.com>]>
+>>> len(donation)
+1
+>>> donation = Donation.objects.filter(email=f'{user_email}12')
+>>> len(donation)
+0
+```
+
+Test models :
+python manage.py shell
+```
+
+from AppCoder.models import Donation,Collaboration,Job
+# order by id desc
+donation = Donation.objects.all().order_by('-id')
+donation = Donation.objects.filter().order_by('id').reverse()
+donation = Donation.objects.all().order_by('id')[::-1]
+
+
+
 ```
 
 * python manage.py runserver
@@ -128,4 +239,13 @@ Test :
 python
 import django
 django.VERSION
+
+```
+https://zerotobyte.com/how-to-reset-the-database-in-django/
+
+You have requested a flush of the database.
+This will IRREVERSIBLY DESTROY all data currently in the "db.sqlite3" database,
+and return each table to an empty state.
+Are you sure you want to do this?
+Type 'yes' to continue, or 'no' to cancel: yes
 ```

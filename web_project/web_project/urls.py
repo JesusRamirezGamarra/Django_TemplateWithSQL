@@ -20,7 +20,8 @@ from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('coderhouse/',views.init),
-    path('coderhouse/actionUrl/<int:pk>/',views.sendEmail,name='actionUrl')
+    path('donar/',views.init),
+    path('send_donation/',views.send_donation)
+    # path('coderhouse/actionUrl/<int:pk>/',views.send_donation,name='actionUrl')
     
 ]

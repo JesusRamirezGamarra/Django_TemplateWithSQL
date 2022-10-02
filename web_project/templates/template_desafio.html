@@ -19,7 +19,7 @@
     <main>
         <div class="row">
             <div class="col-9 col-md-6">
-                <form action='actionUrl' method='GET'>
+                <form action='/send_donation/' method='POST' accept-charset="utf-8">{% csrf_token %}
                     <h1> CoderHouse</h1>
                     <fieldset>
                         <legend><span class="number">1</span>Basic Info</legend>
@@ -29,23 +29,18 @@
                             <input type="email" id="mail" name="user_email" placeholder="Type email" required>                
                         <label for="date">Date of Birth:</label>
                             <input type="date" id="date" name="user_dateofbirht" placeholder="Type Date Of Birth" required>                
-                        <label for="colaboration" >Colaboracion ( between 0 a 5000 )</label> 
-                        <span id="valBox"> donation : 0 PEN</span>
-                            <input type="range" class="form-range"  id="colaboration" name="user_colaration" min="0" max="5000" value="0" step="10" onchange="showVal(this.value)" >
-
-                        <!-- <label>Age:</label>
-                            <input type="radio" id="under_13" value="under_13" name="user_age"><label for="under_13" class="light">Under 13</label><br>
-                            <input type="radio" id="over_13" value="over_13" name="user_age"><label for="over_13" class="light">Over 13</label> -->
+                        <label for="collaboration" >Colaboracion ( between 0 a 200 )</label> 
+                        <span id="valBox"> donation : 20 PEN</span>
+                            <input type="range" class="form-range"  id="collaboration" name="user_collaboration" min="10" max="200" value="20" step="10" onchange="showVal(this.value)" required>
                     </fieldset>
 
                     <fieldset>  
                         <legend><span class="number">2</span> Your Profile</legend>
                         <label for="bio">Bio:</label>
-                        <textarea id="bio" name="user_bio"></textarea>
-
+                        <textarea id="bio" name="user_bio" required></textarea>
                     
                         <label for="job">Job Role:</label>
-                        <select id="job" name="user_job">
+                        <select id="job" name="user_job" required>
                         <optgroup label="Web">
                             <option value="frontend_developer">Front-End Developer</option>
                             <option value="php_developer">PHP Developer</option>
@@ -64,35 +59,34 @@
                             <option value="freelancer">Freelancer</option>
                         </optgroup>
                         <optgroup label="Other">
-                            <option value="other_owner">Other</option>
+                            <option value="other">Other</option>
                             <option value="freelancer">Freelancer</option>
                             </optgroup>                        
                         </select>
                         
                         <label>Interests:</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="development">
+                                <input class="form-check-input" type="checkbox" value="user_development" id="development" name="interests" Checked="checked" >
                                 <label class="form-check-label" for="development">
                                     Development
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="Design">
+                                <input class="form-check-input" type="checkbox" value="user_design" id="Design" name="interests">
                                 <label class="form-check-label" for="Design">
                                     Design
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="Business">
+                                <input class="form-check-input" type="checkbox" value="user_business" id="Business" name="interests">
                                 <label class="form-check-label" for="Business">
                                     Business
                                 </label>
-                            </div>                                                        
+                            </div>                                                                                    
                     </fieldset>
-                    <!-- <button class="buttonRegister" type="submit">Create Colaborator</button> -->
+
                     <div class="d-grid gap-2">
                         <button class="btn btn-lg btn-primary" type="submit">add collaboration</button>
-                        <!-- <button name="button" type="submit" onclick="location.href='{% url "actionUrl" %}'"> Send</button> -->
                     </div>                       
                 </form>
 
@@ -158,7 +152,9 @@
                     </figure>
                     
                 </div>    
-                <div class="row" id="divPersonas"></div>                                                         
+                <div class="row" id="divPersonas">
+                    <p>{{user_name}}</p>
+                </div>                                                         
             </div>
         </div>    
         <div  class="row">
